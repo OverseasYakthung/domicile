@@ -1,0 +1,196 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.top-nav {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: right;
+}
+
+.top-nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #000;
+}
+
+.language-toggle .btn {
+  padding: 0.25rem 0.5rem;
+  margin-left: 10px;
+}
+
+.header-banner {
+  background: linear-gradient(to right, #009ee2, #007ac1);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-btn {
+  background-color: white;
+  color: #007ac1;
+  border-radius: 25px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+}
+
+.captcha-box {
+  background-color: white;
+  margin: 30px auto;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.captcha-display {
+  background: #e9ecef;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 120px;
+}
+
+.result-dialog {
+  display: none;
+  background-color: #fff;
+  padding: 20px;
+  margin: 30px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 600px;
+}
+
+.dropdown-icon {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #007ac1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.rotate-up {
+  transform: rotate(180deg);
+}
+
+.service-name {
+  font-weight: bold;
+  text-align: center;
+}
+
+.service-desc {
+  text-align: center;
+}
+
+.expanded-content {
+  display: none;
+  margin-top: 20px;
+}
+
+.expanded-content .row {
+  margin-bottom: 10px;
+}
+
+.expanded-content .col-4 {
+  font-weight: bold;
+}
+
+.view-more {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #007ac1;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.applicant-accordion {
+  margin-top: 15px;
+  display: none;
+}
+
+.applicant-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.applicant-chevron {
+  font-size: 1.5rem;
+  color: #007ac1;
+  transition: transform 0.3s ease;
+  margin-right: 10px;
+}
+
+.applicant-rotate {
+  transform: rotate(180deg);
+}
+
+.applicant-name {
+  font-weight: bold;
+  color: #000;
+}
+
+.applicant-details-section {
+  color: #000;
+  margin: 15px 0 0 35px;
+  line-height: 1.8;
+  display: none;
+}
+
+.applicant-details-section br {
+  display: block;
+  content: "";
+  margin-bottom: 8px;
+}
+
+footer {
+  background-color: #d7ecfc;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.footer-note {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 20px;
+}
+
+#successMessage {
+  display: none;
+  color: green;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+#errorMessage {
+  display: none;
+  color: red;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none !important;
+}
