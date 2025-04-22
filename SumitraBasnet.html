@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>West Bengal eDistrict</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .top-nav {
+      background: #fff;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      text-align: right;
+    }
+    .top-nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #000;
+    }
+    .language-toggle .btn {
+      padding: 0.25rem 0.5rem;
+      margin-left: 10px;
+    }
+    .header-banner {
+      background: linear-gradient(to right, #009ee2, #007ac1);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .login-btn {
+      background-color: white;
+      color: #007ac1;
+      border-radius: 25px;
+      padding: 10px 20px;
+      border: none;
+      font-weight: bold;
+    }
+    .captcha-box {
+      background-color: white;
+      margin: 30px auto;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .captcha-display {
+      background: #e9ecef;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 1.2em;
+      letter-spacing: 2px;
+      border-radius: 5px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .result-dialog {
+      display: none;
+      background-color: #fff;
+      padding: 20px;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+    .dropdown-icon {
+      cursor: pointer;
+      font-size: 2rem;
+      color: #007ac1;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+    }
+    .rotate-up {
+      transform: rotate(180deg);
+    }
+    .service-name {
+      font-weight: bold;
+      text-align: center;
+    }
+    .service-desc {
+      text-align: center;
+    }
+    .expanded-content {
+      display: none;
+      margin-top: 20px;
+    }
+    .expanded-content .row {
+      margin-bottom: 10px;
+    }
+    .expanded-content .col-4 {
+      font-weight: bold;
+    }
+    .view-more {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #007ac1;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .applicant-accordion {
+      margin-top: 15px;
+      display: none;
+    }
+    .applicant-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+    .applicant-chevron {
+      font-size: 1.5rem;
+      color: #007ac1;
+      transition: transform 0.3s ease;
+      margin-right: 10px;
+    }
+    .applicant-rotate {
+      transform: rotate(180deg);
+    }
+    .applicant-name {
+      font-weight: bold;
+      color: #000;
+    }
+    .applicant-details-section {
+      color: #000;
+      margin: 15px 0 0 35px;
+      line-height: 1.8;
+      display: none;
+    }
+    .applicant-details-section br {
+      display: block;
+      content: "";
+      margin-bottom: 8px;
+    }
+    footer {
+      background-color: #d7ecfc;
+      padding: 30px;
+      margin-top: 50px;
+    }
+    footer a {
+      text-decoration: none;
+      color: #000;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .footer-note {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 20px;
+    }
+    #successMessage {
+      display: none;
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    #errorMessage {
+      display: none;
+      color: red;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav d-flex justify-content-between px-3">
+    <div>
+      <a href="#">Skip to main content</a>
+      <a href="#">Home</a>
+    </div>
+    <div class="language-toggle">
+      <button class="btn btn-primary btn-sm">English</button>
+      <button class="btn btn-light btn-sm">বাংলা</button>
+    </div>
+  </div>
+
+  <div class="header-banner">
+    <div>
+      <h4>West Bengal <br> <strong>eDISTRICT</strong></h4>
+      <small>Single Window Portal - Citizen Centric Services & Schemes</small>
+    </div>
+    <div>
+      <h5>Govt of West Bengal</h5>
+      <button class="login-btn">LOGIN/SIGN UP</button>
+    </div>
+  </div>
+
+  <div class="captcha-box">
+    <label class="form-label fw-bold">Captcha</label>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div id="captchaText" class="captcha-display flex-grow-1 me-2">Htyai</div>
+      <button onclick="generateCaptcha()" class="btn btn-outline-primary">⟳</button>
+    </div>
+    <input type="text" id="captchaInput" class="form-control mb-3" placeholder="Enter the captcha above">
+    <button class="btn btn-secondary w-100" onclick="validateCaptcha()">Search</button>
+    <div id="successMessage">Captcha validated successfully!</div>
+    <div id="errorMessage">Invalid Captcha. Please try again.</div>
+  </div>
+
+  <div id="resultDialog" class="result-dialog">
+    <div class="row">
+      <div class="col-2 text-center dropdown-icon" id="dropdownIcon" onclick="toggleExpand(this)">▼</div>
+      <div class="col-4 service-name" id="serviceName">Service Name</div>
+      <div class="col-6 service-desc" id="serviceDesc">
+        Local Residence<br>
+        (Domicile)<br>
+        Certificate
+      </div>
+    </div>
+    <div id="expandedBox" class="expanded-content">
+      <div class="row">
+        <div class="col-4">Service Name</div>
+        <div class="col-8">Local Residence (Domicile) Certificate</div>
+      </div>
+      <div class="row">
+        <div class="col-4">AIN/Application Number</div>
+        <div class="col-8">210042406400554685</div>
+      </div>
+      <div class="row">
+        <div class="col-4">Approval Certificate Number</div>
+        <div class="col-8">N/A</div>
+      </div>
+      <div class="row">
+        <div class="col-4">Date of Approval</div>
+        <div class="col-8">04/03/2025</div>
+      </div>
+      <div class="row">
+        <div class="col-4">Status</div>
+        <div class="col-8">Approved</div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="view-more" onclick="toggleApplicantSection()">
+            View More Details <span>&#128065;</span>
+          </div>
+          
+          <!-- Applicant Accordion -->
+          <div class="applicant-accordion" id="applicantSection">
+            <div class="applicant-header" onclick="toggleApplicantDetails()">
+              <span class="applicant-chevron">▼</span>
+              <span class="applicant-name">
+                <strong>Applicant Name:</strong> Sumitra Basnet
+              </span>
+            </div>
+            <div class="applicant-details-section" id="applicantDetails">
+              <strong>Applicant's Address:</strong><br>
+              Address Line 1-Auldangi Basti, PO-Belgachi,<br>
+              PS- Naxalbari, Block- Naxalbari, Sub Division- Siliguri,<br>
+              Pincode- 734423, Darjeeling, West Bengal, India.<br>
+              <strong>Date Of Application:</strong> 27/11/2024<br>
+              <strong>Valid Till(Date):</strong> N/A
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="row">
+      <div class="col-md-6">
+        <a href="#">FAQ</a>
+        <a href="#">Helpdesk (Contact Us)</a>
+        <a href="#">About Us</a>
+        <a href="#">Feedback</a>
+        <a href="#">Accessibility Statement</a>
+      </div>
+      <div class="col-md-6">
+        <a href="#">Linking Policy</a>
+        <a href="#">Copyright Policy</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund/Cancellation Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-note mt-4">
+      <p>P & AR Department, Government of West Bengal. All rights reserved. | Site Hosted By Webel Technology Limited (WTL).<br>
+      Designed, developed, and maintained by TATA Consultancy Services Ltd.<br>
+      Version ID: 2.2 | Site best viewed on Chrome/Firefox/Edge, on a 16:9 aspect ratio screen.<br>
+      Last reviewed and updated on 02 Jan, 2024</p>
+    </div>
+  </footer>
+
+  <script>
+    function generateCaptcha() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let captcha = '';
+      for (let i = 0; i < 5; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('captchaText').textContent = captcha;
+    }
+
+    function validateCaptcha() {
+      const input = document.getElementById('captchaInput').value;
+      const captcha = document.getElementById('captchaText').textContent;
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+      if (input === captcha) {
+        document.getElementById('resultDialog').style.display = 'block';
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+      } else {
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+      }
+    }
+
+    function toggleExpand(icon) {
+      const box = document.getElementById('expandedBox');
+      const isVisible = box.style.display === 'block';
+      const serviceName = document.getElementById('serviceName');
+      const serviceDesc = document.getElementById('serviceDesc');
+
+      box.style.display = isVisible ? 'none' : 'block';
+      icon.classList.toggle('rotate-up', !isVisible);
+      serviceName.classList.toggle('hidden', !isVisible);
+      serviceDesc.classList.toggle('hidden', !isVisible);
+    }
+
+    function toggleApplicantSection() {
+      const section = document.getElementById('applicantSection');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function toggleApplicantDetails() {
+      const details = document.getElementById('applicantDetails');
+      const chevron = document.querySelector('.applicant-chevron');
+      const isVisible = details.style.display === 'block';
+      
+      details.style.display = isVisible ? 'none' : 'block';
+      chevron.classList.toggle('applicant-rotate', !isVisible);
+    }
+
+    window.onload = generateCaptcha;
+  </script>
+
+</body>
+</html>
